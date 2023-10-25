@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Inter } from "next/font/google";
 import axios from "axios";
 import TypingAnimation from "@/components/TypingAnimation";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -28,7 +26,7 @@ export default function Home() {
 
     const data = {
       model: "gpt-3.5-turbo-0301",
-      messages: [{ role: "user", content: "message" }],
+      messages: [{ "role": "user", "content": message }],
     };
 
     setIsLoading(true);
@@ -75,7 +73,7 @@ export default function Home() {
             ))}
             {
               isLoading &&
-              <div key={chatLog.length} className="felx justify-start">
+              <div key={chatLog.length} className="flex justify-start">
                   <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
                     <TypingAnimation />
                   </div>

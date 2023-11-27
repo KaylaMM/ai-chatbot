@@ -4,12 +4,8 @@ import { redirect } from "next/dist/server/api-utils";
 
 export default async function handler(req, res) {
   const referer = req.headers.referer || req.headers.referrer;
-  console.log("method", req.method);
   if (req.method !== "POST") {
     res.status(405).json({ message: "Method should be POST" });
-  } else if (process.env.NODE_ENV !== "development") {
-    console.log("must be post method?", req.method);
-    console.log({ referer });
   } else {
     try {
       const { body } = req;

@@ -26,7 +26,7 @@ export default function Home() {
 
     const data = {
       model: "gpt-3.5-turbo-0301",
-      messages: [{ "role": "user", "content": message }],
+      messages: [{ role: "user", content: message }],
     };
 
     setIsLoading(true);
@@ -34,7 +34,7 @@ export default function Home() {
     axios
       .post(url, data)
       .then((response) => {
-        console.log(response);
+        console.log({ response });
         setChatLog((prevChatLog) => [
           ...prevChatLog,
           { type: "bot", message: response.data.choices[0].message.content },
@@ -43,7 +43,7 @@ export default function Home() {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
+        console.log({ error });
       });
   };
 
@@ -71,14 +71,13 @@ export default function Home() {
                 </div>
               </div>
             ))}
-            {
-              isLoading &&
+            {isLoading && (
               <div key={chatLog.length} className="flex justify-start">
-                  <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
-                    <TypingAnimation />
-                  </div>
+                <div className="bg-gray-800 rounded-lg p-4 text-white max-w-sm">
+                  <TypingAnimation />
+                </div>
               </div>
-            }
+            )}
           </div>
         </div>
         <form onSubmit={handleSubmit} className="flex-none p-6">
@@ -90,7 +89,12 @@ export default function Home() {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
-            <button type="submit" className="bg-purple-500 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none hover:bg-purple-600 transition-colors duration-300">Send</button>
+            <button
+              type="submit"
+              className="bg-purple-500 rounded-lg px-4 py-2 text-white font-semibold focus:outline-none hover:bg-purple-600 transition-colors duration-300"
+            >
+              Send
+            </button>
           </div>
         </form>
       </div>
